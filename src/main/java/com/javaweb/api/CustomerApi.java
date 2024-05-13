@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/customers")
@@ -66,11 +67,20 @@ public class CustomerApi {
                 .body("Membership registered");
     }
 
+    /*
+     * Your request should look something like this
+     * !!!!! customerPostcode IS REQUIRED
+     * localhost:8081/customers/restaurants?customerPostcode=12342&keyword=RestaurantName&category=CategoryName&distanceFrom=1&distanceTo=10&ratingFrom=1&ratingTo=4
+     *
+     * if there are no search filter at all
+     * localhost:8081/customers/restaurants?customerPostcode=12342&keyword=&category=&distanceFrom=&distanceTo=&ratingFrom=&ratingTo=
+     *
+     * See RestaurantSearchRequest.java and RestaurantConverter.java for more detail
+     *
+     * */
     @GetMapping(value = "/restaurants")
-    public List<RestaurantDto> findRestaurant(@RequestParam(name = "name", required = false) String name, @RequestParam("customerPostcode") Integer customerPostcode) {
-        if (StringUtils.isEmpty(name)) {
-            return restaurantService.getAllRestaurants(customerPostcode);
-        }
-        return restaurantService.getRestaurantByName(name, customerPostcode);
+    public List<RestaurantDto> findRestaurant(@RequestParam Map<String, Object> params,
+                                              @RequestParam("customerPostcode") Integer customerPostcode) {
+        return restaurantService.getRestaurantByParams(params, customerPostcode);
     }
 }
