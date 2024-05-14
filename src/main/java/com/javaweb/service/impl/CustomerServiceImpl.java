@@ -1,16 +1,12 @@
 package com.javaweb.service.impl;
 
-import com.javaweb.converter.CustomerConverter;
-import com.javaweb.converter.OrderConverter;
-import com.javaweb.converter.OrderLineComboConverter;
-import com.javaweb.converter.OrderLineDishConverter;
+import com.javaweb.converter.*;
 import com.javaweb.enums.VipType;
 import com.javaweb.model.dto.*;
 import com.javaweb.model.entity.CustomerEntity;
-import com.javaweb.model.entity.OrderEntity;
 import com.javaweb.repository.CustomerRepository;
+import com.javaweb.repository.FeedbackRepository;
 import com.javaweb.service.CustomerService;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +32,12 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     private OrderLineComboConverter orderLineComboConverter;
+
+    @Autowired
+    private FeedbackRepository feedbackRepository;
+
+    @Autowired
+    private FeedbackConverter feedbackConverter;
 
     @Override
     public List<CustomerEntity> getAllCustomers() {
@@ -90,5 +92,8 @@ public class CustomerServiceImpl implements CustomerService {
         return customerProfileDto;
     }
 
-
+    @Override
+    public void giveFeedback(FeedbackDto feedbackDto) {
+        feedbackRepository.save(feedbackConverter.dtoToEntity(feedbackDto));
+    }
 }

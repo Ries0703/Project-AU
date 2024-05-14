@@ -99,4 +99,12 @@ public class CustomerApi {
     public CustomerProfileDto getCustomerProfile(@RequestParam(name = "id") Integer customerId) {
         return customerService.getCustomerProfile(customerId);
     }
+
+    @PutMapping(value = "/feedback")
+    public ResponseEntity<MessageResponse> giveFeedback(@RequestBody FeedbackDto feedbackDto) {
+        customerService.giveFeedback(feedbackDto);
+        return ResponseEntity.status(HttpStatus.ACCEPTED)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new MessageResponse("Feedback sent"));
+    }
 }

@@ -3,6 +3,7 @@ package com.javaweb.service;
 
 import com.javaweb.model.dto.CustomerProfileDto;
 import com.javaweb.model.dto.CustomerSignUpDto;
+import com.javaweb.model.dto.FeedbackDto;
 import com.javaweb.model.dto.MembershipDto;
 import com.javaweb.model.entity.CustomerEntity;
 
@@ -15,4 +16,5 @@ public interface CustomerService {
     void createCustomer(CustomerSignUpDto customerSignUpDto);
     boolean registerMembership(MembershipDto membershipDto);
     CustomerProfileDto getCustomerProfile(Integer customerId);
+    void giveFeedback(FeedbackDto feedbackDto);
 }
