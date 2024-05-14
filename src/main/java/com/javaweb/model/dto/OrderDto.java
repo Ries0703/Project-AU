@@ -10,7 +10,6 @@ public class OrderDto {
     private String customerAddress;
     private Integer postCodeAddress;
     private String cardNumber;
-    private String ccv;
     private List<OrderLineComboDto> orderLineComboDtoList;
     private List<OrderLineDishDto> orderLineDishDtoList;
 }

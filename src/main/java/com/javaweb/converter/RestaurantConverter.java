@@ -20,9 +20,6 @@ public class RestaurantConverter {
     @Autowired
     ModelMapper modelMapper;
 
-    @Autowired
-    CustomerRepository customerRepository;
-
     public RestaurantDto entityToDto(RestaurantEntity restaurantEntity, Integer customerPostcode) {
         RestaurantDto restaurantDto = modelMapper.map(restaurantEntity, RestaurantDto.class);
         List<FeedbackEntity> feedbackEntityList = restaurantEntity.getFeedbackEntityList();
