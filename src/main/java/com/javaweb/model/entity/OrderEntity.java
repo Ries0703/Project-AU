@@ -38,16 +38,12 @@ public class OrderEntity {
     @Column(name = "ccv", nullable = false, length = 10)
     private String ccv;
 
-    @Column(name = "expiration", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date expiration;
-
     @OneToMany(mappedBy = "orderEntity", fetch = FetchType.LAZY)
     private List<ShippingEntity> shippingEntityList;
 
     @OneToMany(mappedBy = "orderEntity", fetch = FetchType.LAZY)
-    private List<OrderlinesComboEntity> orderlinesComboEntityList;
+    private List<OrderLinesComboEntity> orderLinesComboEntityList;
 
     @OneToMany(mappedBy = "orderEntity")
-    private List<OrderlinesDishEntity> orderlinesDishEntityList;
+    private List<OrderLinesDishEntity> orderLinesDishEntityList;
 }

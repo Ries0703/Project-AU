@@ -11,7 +11,7 @@ import javax.persistence.*;
         uniqueConstraints = @UniqueConstraint(columnNames = {"id_order", "id_combo"}))
 @Getter
 @Setter
-public class OrderlinesComboEntity {
+public class OrderLinesComboEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

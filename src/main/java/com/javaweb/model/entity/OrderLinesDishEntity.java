@@ -11,7 +11,7 @@ import javax.persistence.*;
         uniqueConstraints = @UniqueConstraint(columnNames = {"id_order", "id_dish"}))
 @Getter
 @Setter
-public class OrderlinesDishEntity {
+public class OrderLinesDishEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

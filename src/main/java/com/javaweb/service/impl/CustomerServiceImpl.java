@@ -1,18 +1,23 @@
 package com.javaweb.service.impl;
 
 import com.javaweb.converter.CustomerConverter;
+import com.javaweb.converter.OrderConverter;
+import com.javaweb.converter.OrderLineComboConverter;
+import com.javaweb.converter.OrderLineDishConverter;
 import com.javaweb.enums.VipType;
-import com.javaweb.model.dto.CustomerSignUpDto;
-import com.javaweb.model.dto.MembershipDto;
+import com.javaweb.model.dto.*;
 import com.javaweb.model.entity.CustomerEntity;
+import com.javaweb.model.entity.OrderEntity;
 import com.javaweb.repository.CustomerRepository;
 import com.javaweb.service.CustomerService;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -22,6 +27,15 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     private CustomerConverter customerConverter;
+
+    @Autowired
+    private OrderConverter orderConverter;
+
+    @Autowired
+    private OrderLineDishConverter orderLineDishConverter;
+
+    @Autowired
+    private OrderLineComboConverter orderLineComboConverter;
 
     @Override
     public List<CustomerEntity> getAllCustomers() {
@@ -44,17 +58,37 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void registerMembership(MembershipDto membershipDto) {
+    public boolean registerMembership(MembershipDto membershipDto) {
         CustomerEntity customerEntity = customerRepository.findById(membershipDto.getCustomerId()).get();
+        LocalDate currentExpiration = customerEntity.getVipExpiration();
+        if (currentExpiration != null && LocalDate.now().isBefore(currentExpiration)) {
+            return false;
+        }
         customerEntity.setVipType(membershipDto.getVipType().getVipTypeName());
         int days = membershipDto.getVipType().equals(VipType.MONTHLY) ? 30 : 365;
-        LocalDate currentExpiration = customerEntity.getVipExpiration();
-
         customerEntity.setVipExpiration(
                 Optional.ofNullable(currentExpiration)
                         .map(expiration -> expiration.plusDays(days))
                         .orElse(LocalDate.now().plusDays(days))
         );
         customerRepository.save(customerEntity);
+        return true;
     }
+
+    @Override
+    public CustomerProfileDto getCustomerProfile(Integer customerId) {
+        CustomerEntity customerEntity = customerRepository.findById(customerId).get();
+
+        CustomerDto customerDto = customerConverter.entityToDto(customerEntity);
+        List<OrderDto> orderDtoList = customerEntity.getOrderEntityList().stream()
+                .map(orderConverter::entityToDto)
+                .collect(Collectors.toList());
+
+        CustomerProfileDto customerProfileDto = new CustomerProfileDto();
+        customerProfileDto.setCustomerDto(customerDto);
+        customerProfileDto.setOrderDtoList(orderDtoList);
+        return customerProfileDto;
+    }
+
+
 }
