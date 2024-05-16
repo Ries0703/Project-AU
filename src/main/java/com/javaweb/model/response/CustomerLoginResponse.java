@@ -7,4 +7,5 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CustomerLoginResponse {
     final String message;
+    final Integer customerId;
 }

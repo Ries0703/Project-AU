@@ -3,6 +3,7 @@ package com.javaweb.converter;
 import com.javaweb.model.dto.OrderDto;
 import com.javaweb.model.dto.OrderLineComboDto;
 import com.javaweb.model.dto.OrderLineDishDto;
+import com.javaweb.model.request.OrderRequestDto;
 import com.javaweb.model.entity.OrderEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +35,9 @@ public class OrderConverter {
         orderDto.setOrderLineComboDtoList(orderLineComboDtoList);
         orderDto.setOrderLineDishDtoList(orderLineDishDtoList);
         return orderDto;
+    }
+
+    public OrderEntity dtoToEntity(OrderRequestDto orderRequestDto) {
+        return modelMapper.map(orderRequestDto, OrderEntity.class);
     }
 }

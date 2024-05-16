@@ -1,7 +1,6 @@
 package com.javaweb.model.entity;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 import lombok.Getter;
@@ -30,7 +29,7 @@ public class OrderEntity {
     private String customerAddress;
 
     @Column(name = "postcode_address", nullable = false, length = 20)
-    private Integer postCodeAddress;
+    private Integer customerPostcode;
 
     @Column(name = "card_number", nullable = false)
     private String cardNumber;
@@ -38,12 +37,18 @@ public class OrderEntity {
     @Column(name = "ccv", nullable = false, length = 10)
     private String ccv;
 
-    @OneToMany(mappedBy = "orderEntity", fetch = FetchType.LAZY)
+    @Column(name = "amount")
+    private Double amount;
+
+    @Column(name = "card_expiration")
+    private String cardExpiration;
+
+    @OneToMany(mappedBy = "orderEntity", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<ShippingEntity> shippingEntityList;
 
-    @OneToMany(mappedBy = "orderEntity", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "orderEntity", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<OrderLinesComboEntity> orderLinesComboEntityList;
 
-    @OneToMany(mappedBy = "orderEntity")
+    @OneToMany(mappedBy = "orderEntity", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<OrderLinesDishEntity> orderLinesDishEntityList;
 }

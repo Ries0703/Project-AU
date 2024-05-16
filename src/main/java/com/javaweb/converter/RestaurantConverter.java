@@ -1,11 +1,11 @@
 package com.javaweb.converter;
 
 import com.javaweb.model.dto.RestaurantDto;
+import com.javaweb.model.dto.RestaurantSignUpDto;
+import com.javaweb.model.dto.RestaurantUpdateDto;
 import com.javaweb.model.entity.FeedbackEntity;
 import com.javaweb.model.entity.RestaurantEntity;
 import com.javaweb.model.request.RestaurantSearchRequest;
-import com.javaweb.repository.CustomerRepository;
-import com.javaweb.repository.RestaurantRepository;
 import org.apache.commons.collections4.MapUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +48,13 @@ public class RestaurantConverter {
                 .ratingFrom(MapUtils.getDouble(params, "ratingFrom", 0.0))
                 .ratingTo(MapUtils.getDouble(params, "ratingTo", Double.MAX_VALUE))
                 .build();
+    }
+
+    public RestaurantEntity signUpDtoToEntity(RestaurantSignUpDto signUpDto) {
+        return modelMapper.map(signUpDto, RestaurantEntity.class);
+    }
+
+    public RestaurantEntity updateDtoToEntity(RestaurantUpdateDto restaurantUpdateDto) {
+        return modelMapper.map(restaurantUpdateDto, RestaurantEntity.class);
     }
 }
