@@ -1,6 +1,7 @@
 # Dependencies
 
 Please use IntelliJ Ultimate as this code relies heavily on IntelliJ Ultimate's bundled extensions
+
 Sign up for the free Student Pack if you are not able to afford a license
 
 This code use JDK 8, download here: https://drive.google.com/file/d/18bjLQTW5-Evrr6c0HGnCkeQhbz14Tpib/view
