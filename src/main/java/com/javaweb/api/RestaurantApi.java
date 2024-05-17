@@ -92,8 +92,8 @@ public class RestaurantApi {
     public ResponseEntity<MessageResponse> updateInfo(@RequestBody RestaurantUpdateDto restaurantUpdateDto) {
         restaurantService.updateRestaurant(restaurantUpdateDto);
         return ResponseEntity.status(HttpStatus.ACCEPTED)
-                .contentType(MediaType.APPLICATION_JSON).
-                body(new MessageResponse("Restaurant info updated"));
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new MessageResponse("Restaurant info updated"));
     }
 
 

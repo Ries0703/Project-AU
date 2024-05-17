@@ -36,6 +36,7 @@ public class RestaurantConverter {
 
         Integer distance = Math.abs(restaurantEntity.getPostCode() - customerPostcode);
         restaurantDto.setDistance(distance);
+        restaurantDto.setRestaurantId(restaurantEntity.getId());
         return restaurantDto;
     }
 

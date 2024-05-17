@@ -87,7 +87,7 @@ public class CustomerApi {
     request body example
     {
         "customerId": 2, //use customerId gotten from login() here
-        "vipType": "MONTHLY"
+        "vipType": "MONTHLY" // or "YEARLY"
     }
     remember to use all uppercase for vipType
     * */

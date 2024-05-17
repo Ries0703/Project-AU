@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 @Data
 public class CustomerDto {
+    private Integer customerId;
     private String email;
     private VipType vipType;
     private LocalDate vipExpiration;

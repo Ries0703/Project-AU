@@ -19,6 +19,8 @@ public class CustomerConverter {
     }
 
     public CustomerDto entityToDto(CustomerEntity customerEntity) {
-        return modelMapper.map(customerEntity, CustomerDto.class);
+        CustomerDto customerDto = modelMapper.map(customerEntity, CustomerDto.class);
+        customerDto.setCustomerId(customerEntity.getId());
+        return customerDto;
     }
 }
