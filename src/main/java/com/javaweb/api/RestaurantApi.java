@@ -201,4 +201,15 @@ public class RestaurantApi {
                 .body(new MessageResponse("Combo updated"));
     }
 
+
+    /*
+     * url example
+     *
+     * http://localhost:8081/restaurants/profile?id=102
+     * */
+    @GetMapping(value = "/profile")
+    public RestaurantProfileDto getRestaurantProfile(@RequestParam(name = "id") Integer restaurantId) {
+        return restaurantService.findRestaurantProfileById(restaurantId);
+    }
+
 }
